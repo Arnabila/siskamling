@@ -1,16 +1,21 @@
-import React from "react";
+"use client";
 import Navbar from "../components/NavbarFitur";
 import Header from "../components/Sidebarpeta";
-import Map from "../components/Map";
+import dynamic from "next/dynamic";
+const DynamicMapComponent = dynamic(() => import("./Map"), {
+  ssr: false,
+});
 
-export default function Index() {
+const MyPage = () => {
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Navbar />
-      <Header />
-      <Map />
-    </>
+      <div style={{ display: "flex", height: "calc(100vh - 64px)" }}>
+        <Header style={{ margin: 0 }} />
+        <DynamicMapComponent style={{ margin: 0 }} />
+      </div>
+    </div>
   );
-}
+};
 
-// Include this in your CSS file or within a <style> tag in your component file
+export default MyPage;
